@@ -15,12 +15,12 @@
         <button type="button" class="list-item__actions-btn" title="Удалить">
           <i class="gg-trash"></i>
         </button>
-        <button v-if="items?.length" type="button" class="list-item__actions-btn">
+        <button type="button" class="list-item__actions-btn">
           <i class="gg-chevron-up"></i>
         </button>
       </div>
     </div>
-    <ThingsList v-if="items?.length" :things="items" :nested="true" />
+    <ThingsList :things="items" :level="level + 1" />
   </li>
 </template>
 <script setup>
@@ -29,7 +29,8 @@ import ThingsList from '@/components/ThingsList.vue';
 defineProps({
   text: String,
   marked: Boolean,
-  items: Array || undefined
+  items: Array || undefined,
+  level: Number
 });
 </script>
 <style scoped>

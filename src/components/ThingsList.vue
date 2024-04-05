@@ -2,7 +2,7 @@
   <ul
     class="list"
     :class="{
-      'list--nested': nested
+      'list--nested': level > 0
     }"
   >
     <ThingsListItem
@@ -11,7 +11,11 @@
       :text="thing.text"
       :marked="thing.marked"
       :items="thing.items"
+      :level="level"
     />
+    <li v-if="level < 2">
+      <button class="add-button" type="button"><i class="gg-math-plus"></i> Добавить</button>
+    </li>
   </ul>
 </template>
 <script setup>
@@ -19,11 +23,21 @@ import ThingsListItem from '@/components/ThingsListItem.vue';
 
 defineProps({
   things: Array,
-  nested: Boolean
+  level: Number
 });
 </script>
 <style scoped>
+@import '@/../node_modules/css.gg/icons/scss/math-plus.scss';
 .list--nested {
   margin-left: 2em;
+}
+
+.add-button {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+  padding-top: 0.5em;
+  padding-bottom: 1.5em;
 }
 </style>
