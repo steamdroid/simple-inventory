@@ -1,5 +1,10 @@
 <template>
-  <li class="list-item" :class="marked && 'list-item--marked'">
+  <li
+    class="list-item"
+    :class="{
+      'list-item--marked': marked
+    }"
+  >
     <div class="list-item__wrapper py-2 mb-2">
       <button type="button" class="list-item__toggle"></button>
       <span class="list-item__text">{{ text }}</span>
@@ -10,17 +15,21 @@
         <button type="button" class="list-item__actions-btn" title="Удалить">
           <i class="gg-trash"></i>
         </button>
-        <button type="button" class="list-item__actions-btn" title="Удалить">
+        <button v-if="items?.length" type="button" class="list-item__actions-btn">
           <i class="gg-chevron-up"></i>
         </button>
       </div>
     </div>
+    <ThingsList v-if="items?.length" :things="items" :nested="true" />
   </li>
 </template>
 <script setup>
+import ThingsList from '@/components/ThingsList.vue';
+
 defineProps({
   text: String,
-  marked: Boolean
+  marked: Boolean,
+  items: Array || undefined
 });
 </script>
 <style scoped>
