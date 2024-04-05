@@ -1,0 +1,63 @@
+<template>
+  <li class="list-item" :class="marked && 'list-item--marked'">
+    <div class="list-item__wrapper py-2 mb-2">
+      <button type="button" class="list-item__toggle"></button>
+      <span class="list-item__text">{{ text }}</span>
+      <div class="list-item__actions ml-auto">
+        <button type="button" class="list-item__actions-btn" title="Скрыть">
+          <i class="gg-eye-alt"></i>
+        </button>
+        <button type="button" class="list-item__actions-btn" title="Удалить">
+          <i class="gg-trash"></i>
+        </button>
+        <button type="button" class="list-item__actions-btn" title="Удалить">
+          <i class="gg-chevron-up"></i>
+        </button>
+      </div>
+    </div>
+  </li>
+</template>
+<script setup>
+defineProps({
+  text: String,
+  marked: Boolean
+});
+</script>
+<style scoped>
+@import '@/../node_modules/css.gg/icons/scss/chevron-down.scss';
+@import '@/../node_modules/css.gg/icons/scss/chevron-up.scss';
+@import '@/../node_modules/css.gg/icons/scss/eye.scss';
+@import '@/../node_modules/css.gg/icons/scss/eye-alt.scss';
+@import '@/../node_modules/css.gg/icons/scss/trash.scss';
+
+.list-item__toggle {
+  display: block;
+  width: 1em;
+  height: 1em;
+  line-height: 1em;
+  border: 1px solid var(--bulma-text);
+  border-radius: 50%;
+  margin-right: 1em;
+}
+
+.list-item--marked .list-item__toggle {
+  background-color: var(--bulma-text);
+}
+
+.list-item--marked .list-item__text {
+  text-decoration: line-through;
+}
+
+.list-item__wrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+  border-bottom: 1px solid var(--bulma-text);
+}
+
+.list-item__actions {
+  display: flex;
+  flex-direction: row;
+  gap: 15px;
+}
+</style>
