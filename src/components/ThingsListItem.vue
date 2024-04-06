@@ -63,50 +63,52 @@ function changeItemText(evt) {
   store.changeItemText(id, text);
 }
 </script>
-<style scoped>
+<style lang="scss" scoped>
 @import '@/../node_modules/css.gg/icons/scss/chevron-down.scss';
 @import '@/../node_modules/css.gg/icons/scss/chevron-up.scss';
 @import '@/../node_modules/css.gg/icons/scss/eye.scss';
 @import '@/../node_modules/css.gg/icons/scss/eye-alt.scss';
 @import '@/../node_modules/css.gg/icons/scss/trash.scss';
 
-.list-item__toggle {
-  display: block;
-  width: 1em;
-  height: 1em;
-  line-height: 1em;
-  border: 1px solid var(--bulma-text);
-  border-radius: 50%;
-  margin-right: 1em;
-}
+.list-item {
+  &__toggle {
+    display: block;
+    width: 1em;
+    height: 1em;
+    line-height: 1em;
+    border: 1px solid var(--bulma-text);
+    border-radius: 50%;
+    margin-right: 1em;
+  }
 
-.list-item__text {
-  outline: none;
-  width: 100%;
-}
+  &__text {
+    outline: none;
+    width: 100%;
+  }
 
-.list-item--marked .list-item__toggle {
-  background-color: var(--bulma-text);
-}
+  &__wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    border-bottom: 1px solid var(--bulma-text);
+  }
 
-.list-item--marked .list-item__text {
-  text-decoration: line-through;
-}
+  &__actions {
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+  }
 
-.list-item__wrapper {
-  display: flex;
-  flex-direction: row;
-  align-items: baseline;
-  border-bottom: 1px solid var(--bulma-text);
-}
+  &__actions-btn--remove:last-child {
+    margin-right: 0.5em;
+  }
 
-.list-item__actions {
-  display: flex;
-  flex-direction: row;
-  gap: 15px;
-}
+  &--marked .list-item__toggle {
+    background-color: var(--bulma-text);
+  }
 
-.list-item__actions-btn--remove:last-child {
-  margin-right: 0.5em;
+  &--marked .list-item__text {
+    text-decoration: line-through;
+  }
 }
 </style>

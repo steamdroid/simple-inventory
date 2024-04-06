@@ -19,7 +19,7 @@ import { useThingsStore } from '@/stores/thingsStore.js';
 
 const store = useThingsStore();
 </script>
-<style scoped>
+<style lang="scss" scoped>
 header {
   display: flex;
   flex-direction: row;

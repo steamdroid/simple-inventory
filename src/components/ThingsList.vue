@@ -36,18 +36,19 @@ defineProps({
 
 const store = useThingsStore();
 </script>
-<style scoped>
+<style lang="scss" scoped>
 @import '@/../node_modules/css.gg/icons/scss/math-plus.scss';
 .list {
   height: 0;
   overflow: hidden;
-}
 
-.list--open {
-  height: 100%;
-}
-.list--nested {
-  margin-left: 2em;
+  &--open {
+    height: 100%;
+  }
+
+  &--nested {
+    margin-left: 2em;
+  }
 }
 
 .add-button {
