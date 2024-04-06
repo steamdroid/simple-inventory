@@ -16,6 +16,7 @@
           type="button"
           class="list-item__actions-btn list-item__actions-btn--remove"
           title="Удалить"
+          @click="store.removeItem(id)"
         >
           <i class="gg-trash"></i>
         </button>
@@ -24,18 +25,22 @@
         </button>
       </div>
     </div>
-    <ThingsList :things="items" :level="level + 1" />
+    <ThingsList :things="items" :parent="id" :level="level + 1" />
   </li>
 </template>
 <script setup>
+import { useThingsStore } from '@/stores/thingsStore.js';
 import ThingsList from '@/components/ThingsList.vue';
 
 defineProps({
+  id: Number,
   text: String,
   marked: Boolean,
   items: Array || undefined,
   level: Number
 });
+
+const store = useThingsStore();
 </script>
 <style scoped>
 @import '@/../node_modules/css.gg/icons/scss/chevron-down.scss';

@@ -11,20 +11,27 @@
       :text="thing.text"
       :marked="thing.marked"
       :items="thing.items"
+      :id="thing.id"
       :level="level"
     />
     <li v-if="level < 2">
-      <button class="add-button" type="button"><i class="gg-math-plus"></i> Добавить</button>
+      <button class="add-button" type="button" @click="store.addEmptyItem(parent || null)">
+        <i class="gg-math-plus"></i> Добавить
+      </button>
     </li>
   </ul>
 </template>
 <script setup>
+import { useThingsStore } from '@/stores/thingsStore.js';
 import ThingsListItem from '@/components/ThingsListItem.vue';
 
 defineProps({
+  parent,
   things: Array,
   level: Number
 });
+
+const store = useThingsStore();
 </script>
 <style scoped>
 @import '@/../node_modules/css.gg/icons/scss/math-plus.scss';
