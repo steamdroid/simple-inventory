@@ -11,9 +11,15 @@
         text
       }}</span>
       <div class="list-item__actions ml-auto">
-        <!-- <button type="button" class="list-item__actions-btn" title="Скрыть">
-          <i class="gg-eye-alt"></i>
-        </button> -->
+        <button
+          v-if="level > 0"
+          type="button"
+          class="list-item__actions-btn"
+          :title="hidden ? 'Показать' : 'Скрыть'"
+          @click="store.toggleItemHide(id)"
+        >
+          <i :class="hidden ? 'gg-eye' : 'gg-eye-alt'"></i>
+        </button>
         <button
           type="button"
           class="list-item__actions-btn list-item__actions-btn--remove"
@@ -44,6 +50,7 @@ defineProps({
   text: String,
   marked: Boolean,
   closed: Boolean,
+  hidden: Boolean,
   items: Array || undefined,
   level: Number
 });

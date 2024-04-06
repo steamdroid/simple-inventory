@@ -60,6 +60,11 @@ export const useThingsStore = defineStore('things', () => {
       if (item.parent === null || activeMode.id === 'all') {
         return true;
       }
+
+      if (item.hidden) {
+        return false;
+      }
+
       return activeMode.id === 'inStock' ? !item.marked : item.marked;
     });
   }
@@ -104,6 +109,11 @@ export const useThingsStore = defineStore('things', () => {
     item.closed = !item.closed;
   }
 
+  function toggleItemHide(id) {
+    const item = findItemById(id);
+    item.hidden = !item.hidden;
+  }
+
   function getClosedStateById(id = null) {
     if (id === null) {
       return;
@@ -122,6 +132,7 @@ export const useThingsStore = defineStore('things', () => {
     changeItemText,
     toggleItemMark,
     toggleItemClose,
-    getClosedStateById
+    getClosedStateById,
+    toggleItemHide
   };
 });

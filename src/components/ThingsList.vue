@@ -12,6 +12,7 @@
       :text="thing.text"
       :closed="thing.closed"
       :marked="thing.marked"
+      :hidden="thing.hidden"
       :items="thing.items"
       :id="thing.id"
       :level="level"
