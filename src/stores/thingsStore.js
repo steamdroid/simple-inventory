@@ -101,7 +101,7 @@ export const useThingsStore = defineStore('things', () => {
   }
 
   function removeItem(id) {
-    data.value = data.value.filter((item) => item.id !== id);
+    data.value = data.value.filter((item) => item.id !== id && item.parent !== id);
 
     saveDataToStorage();
   }
