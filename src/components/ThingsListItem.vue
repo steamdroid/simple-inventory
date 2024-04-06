@@ -9,9 +9,9 @@
       <button type="button" class="list-item__toggle"></button>
       <span class="list-item__text">{{ text }}</span>
       <div class="list-item__actions ml-auto">
-        <button type="button" class="list-item__actions-btn" title="Скрыть">
+        <!-- <button type="button" class="list-item__actions-btn" title="Скрыть">
           <i class="gg-eye-alt"></i>
-        </button>
+        </button> -->
         <button
           type="button"
           class="list-item__actions-btn list-item__actions-btn--remove"
