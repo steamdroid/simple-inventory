@@ -1,10 +1,10 @@
 <template>
   <header class="mb-6">
-    <div class="select">
+    <!-- <div class="select">
       <select name="listName">
         <option>Продукты</option>
       </select>
-    </div>
+    </div> -->
     <div class="tabs is-centered ml-auto">
       <ul>
         <li class="is-active"><a>В наличии</a></li>
