@@ -7,13 +7,9 @@
   >
     <div class="list-item__wrapper py-2 mb-2">
       <button type="button" class="list-item__toggle" @click="store.toggleItemMark(id)"></button>
-      <span
-        class="list-item__text"
-        contenteditable="true"
-        :data-id="id"
-        @input="store.changeItemText"
-        >{{ text }}</span
-      >
+      <span class="list-item__text" contenteditable="true" :data-id="id" @input="changeItemText">{{
+        text
+      }}</span>
       <div class="list-item__actions ml-auto">
         <!-- <button type="button" class="list-item__actions-btn" title="Скрыть">
           <i class="gg-eye-alt"></i>
@@ -53,6 +49,12 @@ defineProps({
 });
 
 const store = useThingsStore();
+
+function changeItemText(evt) {
+  const id = +evt.target.dataset.id;
+  const text = evt.target.textContent;
+  store.changeItemText(id, text);
+}
 </script>
 <style scoped>
 @import '@/../node_modules/css.gg/icons/scss/chevron-down.scss';

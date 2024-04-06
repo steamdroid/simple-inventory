@@ -32,8 +32,7 @@ export const useThingsStore = defineStore('things', () => {
     return modes.value.find((mode) => mode.active);
   });
 
-  function changeActiveMode(evt) {
-    const id = evt.target.dataset.id;
+  function changeActiveMode(id) {
     modes.value = modes.value.map((mode) => {
       mode.active = mode.id === id ? true : false;
       return mode;
@@ -90,9 +89,7 @@ export const useThingsStore = defineStore('things', () => {
     return data.value.find((item) => item.id === id);
   }
 
-  function changeItemText(evt) {
-    const id = +evt.target.dataset.id;
-    const text = evt.target.textContent;
+  function changeItemText(id, text) {
     const item = findItemById(id);
     item.text = text;
   }
