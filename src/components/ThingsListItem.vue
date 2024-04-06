@@ -12,10 +12,14 @@
         <button type="button" class="list-item__actions-btn" title="Скрыть">
           <i class="gg-eye-alt"></i>
         </button>
-        <button type="button" class="list-item__actions-btn" title="Удалить">
+        <button
+          type="button"
+          class="list-item__actions-btn list-item__actions-btn--remove"
+          title="Удалить"
+        >
           <i class="gg-trash"></i>
         </button>
-        <button type="button" class="list-item__actions-btn">
+        <button v-if="level < 1" type="button" class="list-item__actions-btn">
           <i class="gg-chevron-up"></i>
         </button>
       </div>
@@ -69,5 +73,9 @@ defineProps({
   display: flex;
   flex-direction: row;
   gap: 15px;
+}
+
+.list-item__actions-btn--remove:last-child {
+  margin-right: 0.5em;
 }
 </style>
