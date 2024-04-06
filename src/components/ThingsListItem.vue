@@ -80,6 +80,11 @@ function changeItemText(evt) {
   margin-right: 1em;
 }
 
+.list-item__text {
+  outline: none;
+  width: 100%;
+}
+
 .list-item--marked .list-item__toggle {
   background-color: var(--bulma-text);
 }
