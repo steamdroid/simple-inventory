@@ -45,5 +45,10 @@ export const useThingsStore = defineStore('things', () => {
     item.text = text;
   }
 
-  return { data, things, addEmptyItem, removeItem, changeItemText };
+  function toggleItemMark(id) {
+    const item = data.value.find((item) => item.id === id);
+    item.marked = !item.marked;
+  }
+
+  return { data, things, addEmptyItem, removeItem, changeItemText, toggleItemMark };
 });
