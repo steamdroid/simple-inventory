@@ -2,8 +2,7 @@
 
 ## TODO
 
-- Сохранять состояние в localStorage
-- Забирать состояние из localStorage
+- Интеграция с Google Spreadsheets (вместо бэкенда)
 
 ## Project Setup
 
