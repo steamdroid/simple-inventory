@@ -7,7 +7,12 @@
   >
     <div class="list-item__wrapper py-2 mb-2">
       <button type="button" class="list-item__toggle"></button>
-      <span class="list-item__text">{{ text }}</span>
+      <span
+        class="list-item__text"
+        contenteditable="true"
+        @input="store.changeItemText(id, $el.textContent)"
+        >{{ text }}</span
+      >
       <div class="list-item__actions ml-auto">
         <!-- <button type="button" class="list-item__actions-btn" title="Скрыть">
           <i class="gg-eye-alt"></i>

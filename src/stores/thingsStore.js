@@ -40,5 +40,10 @@ export const useThingsStore = defineStore('things', () => {
     data.value = data.value.filter((item) => item.id !== id);
   }
 
-  return { data, things, addEmptyItem, removeItem };
+  function changeItemText(id, text) {
+    const item = data.value.find((item) => item.id === id);
+    item.text = text;
+  }
+
+  return { data, things, addEmptyItem, removeItem, changeItemText };
 });
