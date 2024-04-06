@@ -7,13 +7,23 @@
     </div> -->
     <div class="tabs is-centered ml-auto">
       <ul>
-        <li class="is-active"><a>В наличии</a></li>
-        <li><a>Отсутствуют</a></li>
-        <li><a>Все</a></li>
+        <ModeSelectorItem
+          v-for="mode in store.modes"
+          :id="mode.id"
+          :name="mode.name"
+          :active="mode.active"
+          :key="mode.id"
+        />
       </ul>
     </div>
   </header>
 </template>
+<script setup>
+import ModeSelectorItem from '@/components/ModeSelectorItem.vue';
+import { useThingsStore } from '@/stores/thingsStore.js';
+
+const store = useThingsStore();
+</script>
 <style scoped>
 header {
   display: flex;

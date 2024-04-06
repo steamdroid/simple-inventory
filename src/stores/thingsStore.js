@@ -10,7 +10,33 @@ export const useThingsStore = defineStore('things', () => {
     { id: 5, text: 'Яйца', marked: true, closed: null, parent: 2 }
   ]);
 
-  const things = computed(() => {
+  const modes = ref([
+    {
+      id: 'inStock',
+      name: 'В наличии',
+      active: true
+    },
+    {
+      id: 'absent',
+      name: 'Отсутствуют',
+      active: false
+    },
+    {
+      id: 'all',
+      name: 'Все',
+      active: false
+    }
+  ]);
+
+  function changeActiveMode(evt) {
+    const id = evt.target.dataset.id;
+    modes.value = modes.value.map((mode) => {
+      mode.active = mode.id === id ? true : false;
+      return mode;
+    });
+  }
+
+  function getThingsTree(data) {
     const thingsObj = data.value.reduce((acc, item) => {
       if (item.parent === null || item.parent === undefined) {
         acc[item.id] = { ...item };
@@ -24,6 +50,12 @@ export const useThingsStore = defineStore('things', () => {
     }, {});
 
     return Object.values(thingsObj);
+  }
+
+  const things = computed(() => {
+    const thingsTree = getThingsTree(data);
+
+    return thingsTree;
   });
 
   function addEmptyItem(parent = null) {
@@ -72,6 +104,8 @@ export const useThingsStore = defineStore('things', () => {
   return {
     data,
     things,
+    modes,
+    changeActiveMode,
     addEmptyItem,
     removeItem,
     changeItemText,
