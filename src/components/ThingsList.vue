@@ -2,13 +2,15 @@
   <ul
     class="list"
     :class="{
-      'list--nested': level > 0
+      'list--nested': level > 0,
+      'list--open': !store.getClosedStateById(parent)
     }"
   >
     <ThingsListItem
       v-for="thing in things"
       :key="thing.id"
       :text="thing.text"
+      :closed="thing.closed"
       :marked="thing.marked"
       :items="thing.items"
       :id="thing.id"
@@ -35,6 +37,14 @@ const store = useThingsStore();
 </script>
 <style scoped>
 @import '@/../node_modules/css.gg/icons/scss/math-plus.scss';
+.list {
+  height: 0;
+  overflow: hidden;
+}
+
+.list--open {
+  height: 100%;
+}
 .list--nested {
   margin-left: 2em;
 }

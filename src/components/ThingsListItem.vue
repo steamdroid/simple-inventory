@@ -10,7 +10,8 @@
       <span
         class="list-item__text"
         contenteditable="true"
-        @input="store.changeItemText(id, $el.textContent)"
+        :data-id="id"
+        @input="store.changeItemText"
         >{{ text }}</span
       >
       <div class="list-item__actions ml-auto">
@@ -25,8 +26,13 @@
         >
           <i class="gg-trash"></i>
         </button>
-        <button v-if="level < 1" type="button" class="list-item__actions-btn">
-          <i class="gg-chevron-up"></i>
+        <button
+          v-if="level < 1"
+          @click="store.toggleItemClose(id)"
+          type="button"
+          class="list-item__actions-btn"
+        >
+          <i :class="closed ? 'gg-chevron-down' : 'gg-chevron-up'"></i>
         </button>
       </div>
     </div>
@@ -41,6 +47,7 @@ defineProps({
   id: Number,
   text: String,
   marked: Boolean,
+  closed: Boolean,
   items: Array || undefined,
   level: Number
 });

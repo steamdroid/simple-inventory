@@ -40,15 +40,43 @@ export const useThingsStore = defineStore('things', () => {
     data.value = data.value.filter((item) => item.id !== id);
   }
 
-  function changeItemText(id, text) {
-    const item = data.value.find((item) => item.id === id);
+  function findItemById(id) {
+    return data.value.find((item) => item.id === id);
+  }
+
+  function changeItemText(evt) {
+    const id = +evt.target.dataset.id;
+    const text = evt.target.textContent;
+    const item = findItemById(id);
     item.text = text;
   }
 
   function toggleItemMark(id) {
-    const item = data.value.find((item) => item.id === id);
+    const item = findItemById(id);
     item.marked = !item.marked;
   }
 
-  return { data, things, addEmptyItem, removeItem, changeItemText, toggleItemMark };
+  function toggleItemClose(id) {
+    const item = findItemById(id);
+    item.closed = !item.closed;
+  }
+
+  function getClosedStateById(id = null) {
+    if (id === null) {
+      return;
+    }
+    const item = findItemById(id);
+    return item.closed;
+  }
+
+  return {
+    data,
+    things,
+    addEmptyItem,
+    removeItem,
+    changeItemText,
+    toggleItemMark,
+    toggleItemClose,
+    getClosedStateById
+  };
 });
