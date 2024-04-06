@@ -1,10 +1,5 @@
 <template>
   <header class="mb-6">
-    <!-- <div class="select">
-      <select name="listName">
-        <option>Продукты</option>
-      </select>
-    </div> -->
     <div class="tabs is-centered ml-auto">
       <ul>
         <ModeSelectorItem
