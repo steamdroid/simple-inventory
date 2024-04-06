@@ -1,14 +1,8 @@
 import { defineStore } from 'pinia';
-import { ref, computed } from 'vue';
+import { ref, computed, watch } from 'vue';
 
 export const useThingsStore = defineStore('things', () => {
-  const data = ref([
-    { id: 1, text: 'Овощи и фрукты', closed: true, parent: null },
-    { id: 2, text: 'Молоко и яйца', closed: true, parent: null },
-    { id: 3, text: 'Мясо и рыба', closed: true, parent: null },
-    { id: 4, text: 'Молоко', marked: false, closed: null, parent: 2 },
-    { id: 5, text: 'Яйца', marked: true, closed: null, parent: 2 }
-  ]);
+  const data = ref([]);
 
   const modes = ref([
     {
@@ -27,6 +21,24 @@ export const useThingsStore = defineStore('things', () => {
       active: false
     }
   ]);
+
+  function getDataFromStorage() {
+    const storageData = localStorage.getItem('data');
+
+    if (storageData) {
+      data.value = JSON.parse(storageData);
+    }
+  }
+
+  function saveDataToStorage() {
+    localStorage.setItem('data', JSON.stringify(data.value));
+  }
+
+  getDataFromStorage();
+
+  watch(data, () => {
+    saveDataToStorage();
+  });
 
   const activeMode = computed(() => {
     return modes.value.find((mode) => mode.active);
@@ -84,10 +96,14 @@ export const useThingsStore = defineStore('things', () => {
       marked: false,
       closed: null
     });
+
+    saveDataToStorage();
   }
 
   function removeItem(id) {
     data.value = data.value.filter((item) => item.id !== id);
+
+    saveDataToStorage();
   }
 
   function findItemById(id) {
