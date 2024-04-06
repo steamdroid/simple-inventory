@@ -3,9 +3,9 @@ import { ref, computed } from 'vue';
 
 export const useThingsStore = defineStore('things', () => {
   const data = ref([
-    { id: 1, text: 'Овощи и фрукты', marked: false, closed: true, parent: null },
-    { id: 2, text: 'Молоко и яйца', marked: false, closed: true, parent: null },
-    { id: 3, text: 'Мясо и рыба', marked: false, closed: true, parent: null },
+    { id: 1, text: 'Овощи и фрукты', closed: true, parent: null },
+    { id: 2, text: 'Молоко и яйца', closed: true, parent: null },
+    { id: 3, text: 'Мясо и рыба', closed: true, parent: null },
     { id: 4, text: 'Молоко', marked: false, closed: null, parent: 2 },
     { id: 5, text: 'Яйца', marked: true, closed: null, parent: 2 }
   ]);
@@ -28,6 +28,10 @@ export const useThingsStore = defineStore('things', () => {
     }
   ]);
 
+  const activeMode = computed(() => {
+    return modes.value.find((mode) => mode.active);
+  });
+
   function changeActiveMode(evt) {
     const id = evt.target.dataset.id;
     modes.value = modes.value.map((mode) => {
@@ -37,12 +41,12 @@ export const useThingsStore = defineStore('things', () => {
   }
 
   function getThingsTree(data) {
-    const thingsObj = data.value.reduce((acc, item) => {
-      if (item.parent === null || item.parent === undefined) {
+    const thingsObj = data.reduce((acc, item) => {
+      if (!item.parent) {
         acc[item.id] = { ...item };
       } else if (acc[item.parent]?.items?.length) {
         acc[item.parent].items = [...acc[item.parent].items, { ...item }];
-      } else {
+      } else if (typeof acc[item.parent] !== 'undefined') {
         acc[item.parent].items = [{ ...item }];
       }
 
@@ -52,8 +56,18 @@ export const useThingsStore = defineStore('things', () => {
     return Object.values(thingsObj);
   }
 
+  function filterByMode(data, activeMode) {
+    return data.filter((item) => {
+      if (item.parent === null || activeMode.id === 'all') {
+        return true;
+      }
+      return activeMode.id === 'inStock' ? !item.marked : item.marked;
+    });
+  }
+
   const things = computed(() => {
-    const thingsTree = getThingsTree(data);
+    const filteredThings = filterByMode(data.value, activeMode.value);
+    const thingsTree = getThingsTree(filteredThings);
 
     return thingsTree;
   });
