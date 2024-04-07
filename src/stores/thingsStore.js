@@ -69,7 +69,7 @@ export const useThingsStore = defineStore('things', () => {
 
   function filterByMode(data, activeMode) {
     return data.filter((item) => {
-      if (item.parent === null || activeMode.id === 'all') {
+      if (activeMode.id === 'all') {
         return true;
       }
 
@@ -110,6 +110,12 @@ export const useThingsStore = defineStore('things', () => {
     return data.value.find((item) => item.id === id);
   }
 
+  function findItemChildren(id) {
+    const children = data.value.filter((item) => item.parent === id);
+
+    return children.length ? children : null;
+  }
+
   function changeItemText(id, text) {
     const item = findItemById(id);
     item.text = text;
@@ -118,6 +124,13 @@ export const useThingsStore = defineStore('things', () => {
   function toggleItemMark(id) {
     const item = findItemById(id);
     item.marked = !item.marked;
+
+    const children = findItemChildren(id);
+    if (children !== null) {
+      children.forEach((el) => {
+        el.marked = item.marked;
+      });
+    }
   }
 
   function toggleItemClose(id) {
