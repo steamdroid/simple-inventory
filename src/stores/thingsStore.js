@@ -78,7 +78,6 @@ export const useThingsStore = defineStore('things', () => {
       if (item.hidden) {
         return false;
       }
-
       return activeMode.id === 'inStock' ? !item.marked : item.marked;
     });
   }
@@ -91,48 +90,52 @@ export const useThingsStore = defineStore('things', () => {
   });
 
   function addEmptyItem(parent = null) {
-    data.value.push({
-      id: data.value.reduce((acc, { id }) => (acc > id ? acc : id), 0) + 1,
-      text: '',
-      parent: parent,
-      marked: false,
-      closed: null
-    });
-
-    saveDataToStorage();
+    data.value = [
+      ...data.value,
+      {
+        id: data.value.reduce((acc, { id }) => (acc > id ? acc : id), 0) + 1,
+        text: '',
+        parent: parent,
+        marked: false,
+        closed: null
+      }
+    ];
   }
 
   function removeItem(id) {
     data.value = data.value.filter((item) => item.id !== id && item.parent !== id);
-
-    saveDataToStorage();
   }
 
   function findItemById(id) {
     return data.value.find((item) => item.id === id);
   }
 
-  function findItemChildren(id) {
-    const children = data.value.filter((item) => item.parent === id);
-
-    return children.length ? children : null;
-  }
-
   function changeItemText(id, text) {
-    const item = findItemById(id);
-    item.text = text;
+    data.value = data.value.map((item) => {
+      if (item.id === id) {
+        item.text = text;
+      }
+      return item;
+    });
   }
 
   function toggleItemMark(id) {
-    const item = findItemById(id);
-    item.marked = !item.marked;
+    let markState = null;
 
-    const children = findItemChildren(id);
-    if (children !== null) {
-      children.forEach((el) => {
-        el.marked = item.marked;
-      });
-    }
+    data.value = data.value.map((item) => {
+      if (item.id === id) {
+        item.marked = !item.marked;
+        markState = item.marked;
+      }
+      return item;
+    });
+
+    data.value = data.value.map((item) => {
+      if (item.parent === id) {
+        item.marked = markState;
+      }
+      return item;
+    });
   }
 
   function toggleAllMark() {
@@ -145,13 +148,21 @@ export const useThingsStore = defineStore('things', () => {
   }
 
   function toggleItemClose(id) {
-    const item = findItemById(id);
-    item.closed = !item.closed;
+    data.value = data.value.map((item) => {
+      if (item.id === id) {
+        item.closed = !item.closed;
+      }
+      return item;
+    });
   }
 
   function toggleItemHide(id) {
-    const item = findItemById(id);
-    item.hidden = !item.hidden;
+    data.value = data.value.map((item) => {
+      if (item.id === id) {
+        item.hidden = !item.hidden;
+      }
+      return item;
+    });
   }
 
   function getClosedStateById(id = null) {
