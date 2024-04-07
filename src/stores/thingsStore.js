@@ -125,19 +125,9 @@ export const useThingsStore = defineStore('things', () => {
   }
 
   function toggleItemMark(id) {
-    let markState = null;
-
     data.value = data.value.map((item) => {
       if (item.id === id) {
         item.marked = !item.marked;
-        markState = item.marked;
-      }
-      return item;
-    });
-
-    data.value = data.value.map((item) => {
-      if (item.parent === id) {
-        item.marked = markState;
       }
       return item;
     });
@@ -147,7 +137,9 @@ export const useThingsStore = defineStore('things', () => {
     globalMarkState.value = !globalMarkState.value;
 
     data.value = data.value.map((item) => {
-      item.marked = globalMarkState.value;
+      if (item.parent !== null) {
+        item.marked = globalMarkState.value;
+      }
       return item;
     });
   }
