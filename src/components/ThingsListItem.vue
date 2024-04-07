@@ -17,9 +17,9 @@
       }}</span>
       <div class="list-item__actions ml-auto">
         <button
-          v-if="level > 0"
           type="button"
           class="list-item__actions-btn"
+          v-if="level > 0"
           :title="hidden ? 'Показать' : 'Скрыть'"
           @click="store.toggleItemHide(id)"
         >
@@ -34,10 +34,10 @@
           <i class="gg-trash"></i>
         </button>
         <button
-          v-if="level < 1"
-          @click="store.toggleItemClose(id)"
           type="button"
           class="list-item__actions-btn"
+          v-if="level < 1"
+          @click="store.toggleItemClose(id)"
         >
           <i :class="closed ? 'gg-chevron-down' : 'gg-chevron-up'"></i>
         </button>
