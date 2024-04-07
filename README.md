@@ -4,6 +4,8 @@
 Vue3 + Bulma + иконки css.gg. Вдохновлен Apple Reminders.
 Пока что умеет хранить данные только в localStorage.
 
+Демо: https://steamdroid.github.io/simple-inventory/
+
 ## Сборка проекта
 
 Установить зависимости:
