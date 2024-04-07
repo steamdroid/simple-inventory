@@ -1,5 +1,8 @@
 <template>
   <header class="mb-6">
+    <button type="button" class="underline-dashed" @click="store.toggleAllMark">
+      Отметить/снять всё
+    </button>
     <div class="tabs is-centered ml-auto">
       <ul>
         <ModeSelectorItem
@@ -25,5 +28,8 @@ header {
   flex-direction: row;
   justify-content: space-between;
   align-items: baseline;
+}
+.underline-dashed {
+  border-bottom: 1px dashed var(--bulma-text);
 }
 </style>

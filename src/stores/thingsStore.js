@@ -22,6 +22,8 @@ export const useThingsStore = defineStore('things', () => {
     }
   ]);
 
+  const globalMarkState = ref(false);
+
   function getDataFromStorage() {
     const storageData = localStorage.getItem('data');
 
@@ -133,6 +135,15 @@ export const useThingsStore = defineStore('things', () => {
     }
   }
 
+  function toggleAllMark() {
+    globalMarkState.value = !globalMarkState.value;
+
+    data.value = data.value.map((item) => {
+      item.marked = globalMarkState.value;
+      return item;
+    });
+  }
+
   function toggleItemClose(id) {
     const item = findItemById(id);
     item.closed = !item.closed;
@@ -162,6 +173,7 @@ export const useThingsStore = defineStore('things', () => {
     toggleItemMark,
     toggleItemClose,
     getClosedStateById,
-    toggleItemHide
+    toggleItemHide,
+    toggleAllMark
   };
 });
