@@ -78,6 +78,11 @@ export const useThingsStore = defineStore('things', () => {
       if (item.hidden) {
         return false;
       }
+
+      if (item.parent === null) {
+        return true;
+      }
+
       return activeMode.id === 'inStock' ? !item.marked : item.marked;
     });
   }

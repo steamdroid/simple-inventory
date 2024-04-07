@@ -6,7 +6,12 @@
     }"
   >
     <div class="list-item__wrapper py-2 mb-2">
-      <button type="button" class="list-item__toggle" @click="store.toggleItemMark(id)"></button>
+      <button
+        type="button"
+        class="list-item__toggle"
+        v-if="level > 0"
+        @click="store.toggleItemMark(id)"
+      ></button>
       <span class="list-item__text" contenteditable="true" :data-id="id" @input="changeItemText">{{
         text
       }}</span>
