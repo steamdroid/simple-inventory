@@ -1,29 +1,25 @@
 # Simple Inventory
 
-## TODO
+Простой список наличия чего-либо, например, продуктов.
+Vue3 + Bulma + иконки css.gg. Вдохновлен Apple Reminders.
+Пока что умеет хранить данные только в localStorage.
 
-- Интеграция с Google Spreadsheets (вместо бэкенда)
+## Сборка проекта
 
-## Project Setup
+Установить зависимости:
 
 ```sh
 npm install
 ```
 
-### Compile and Hot-Reload for Development
+Режим разработки
 
 ```sh
 npm run dev
 ```
 
-### Compile and Minify for Production
+Сборка
 
 ```sh
 npm run build
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
 ```
