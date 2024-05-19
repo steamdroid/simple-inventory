@@ -4,7 +4,7 @@
       'is-active': active
     }"
   >
-    <a :data-id="id" @click.prevent.self="changeActiveMode">{{ name }}</a>
+    <a href="#" @click.prevent.self="changeActiveMode(id)">{{ name }}</a>
   </li>
 </template>
 <script setup>
@@ -18,8 +18,7 @@ defineProps({
 
 const store = useThingsStore();
 
-function changeActiveMode(evt) {
-  const id = evt.target.dataset.id;
+function changeActiveMode(id) {
   store.changeActiveMode(id);
 }
 </script>

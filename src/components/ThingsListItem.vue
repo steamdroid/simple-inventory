@@ -12,18 +12,21 @@
         v-if="level > 0"
         @click="store.toggleItemMark(id)"
       ></button>
-      <span class="list-item__text" contenteditable="true" :data-id="id" @input="changeItemText">{{
-        text
-      }}</span>
+      <span
+        class="list-item__text"
+        contenteditable="true"
+        @input="changeItemText(id, $el.textContent)"
+        >{{ text }}</span
+      >
       <div class="list-item__actions ml-auto">
         <button
           type="button"
           class="list-item__actions-btn"
           v-if="level > 0"
-          :title="hidden ? 'Показать' : 'Скрыть'"
+          :title="hiddenText"
           @click="store.toggleItemHide(id)"
         >
-          <i :class="hidden ? 'gg-eye' : 'gg-eye-alt'"></i>
+          <i :class="hiddenClass"></i>
         </button>
         <button
           type="button"
@@ -47,10 +50,11 @@
   </li>
 </template>
 <script setup>
+import { computed } from 'vue';
 import { useThingsStore } from '@/stores/thingsStore.js';
 import ThingsList from '@/components/ThingsList.vue';
 
-defineProps({
+const props = defineProps({
   id: Number,
   text: String,
   marked: Boolean,
@@ -60,11 +64,17 @@ defineProps({
   level: Number
 });
 
+const hiddenClass = computed(() => {
+  return props.hidden ? 'gg-eye' : 'gg-eye-alt';
+});
+
+const hiddenText = computed(() => {
+  return props.hidden ? 'Показать' : 'Скрыть';
+});
+
 const store = useThingsStore();
 
-function changeItemText(evt) {
-  const id = +evt.target.dataset.id;
-  const text = evt.target.textContent;
+function changeItemText(id, text) {
   store.changeItemText(id, text);
 }
 </script>
@@ -78,8 +88,9 @@ function changeItemText(evt) {
 .list-item {
   &__toggle {
     display: block;
-    width: 1em;
-    height: 1em;
+    width: 0.5em;
+    height: 0.5em;
+    padding: 0.5em;
     line-height: 1em;
     border: 1px solid var(--bulma-text);
     border-radius: 50%;
@@ -94,7 +105,7 @@ function changeItemText(evt) {
   &__wrapper {
     display: flex;
     flex-direction: row;
-    align-items: baseline;
+    align-items: center;
     border-bottom: 1px solid var(--bulma-text);
   }
 

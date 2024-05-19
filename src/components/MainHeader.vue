@@ -3,7 +3,7 @@
     <button type="button" class="underline-dashed" @click="store.toggleAllMark">
       Отметить/снять всё
     </button>
-    <div class="tabs is-centered ml-auto">
+    <div class="tabs is-centered">
       <ul>
         <ModeSelectorItem
           v-for="mode in store.modes"
@@ -28,8 +28,21 @@ header {
   flex-direction: row;
   justify-content: space-between;
   align-items: baseline;
+
+  @media screen and (max-width: 520px) {
+    flex-direction: column-reverse;
+    align-items: flex-end;
+  }
 }
 .underline-dashed {
   border-bottom: 1px dashed var(--bulma-text);
+}
+
+.tabs {
+  margin-left: auto;
+
+  @media screen and (max-width: 520px) {
+    margin-bottom: 1em;
+  }
 }
 </style>

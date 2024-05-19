@@ -57,6 +57,6 @@ const store = useThingsStore();
   align-items: center;
   gap: 10px;
   padding-top: 0.5em;
-  padding-bottom: 1.5em;
+  margin-bottom: 1.5em;
 }
 </style>
