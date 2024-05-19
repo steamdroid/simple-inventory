@@ -16,6 +16,7 @@
         class="list-item__text"
         contenteditable="true"
         @input="changeItemText(id, $el.textContent)"
+        v-focus
         >{{ text }}</span
       >
       <div class="list-item__actions ml-auto">
